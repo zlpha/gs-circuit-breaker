@@ -7,7 +7,7 @@ projects: [spring-cloud, spring-cloud-netflix]
 :toc:
 :icons: font
 :source-highlighter: prettify
-:project_id: draft-gs-template
+:project_id: gs-circuit-breaker
 This guide walks you through the process of applying circuit breakers to potentially-failing method calls using the Netflix Hystrix fault tolerance library.
 
 == What you'll build
@@ -177,7 +177,7 @@ include::complete/reading/src/main/java/hello/ReadingApplication.java[]
 
 Now, to retrieve the list from the Bookstore service, we call `bookService.readingList()`. You'll also notice that we've added one last annotation, `@EnableCircuitBreaker`; that's necessary to tell Spring Cloud that the Reading application uses circuit breakers and to enable their monitoring, opening, and closing (behavior supplied, in our case, by Hystrix).
 
-== Trying it out
+== Try it out
 
 Run both the Bookstore service and the Reading service, and then open a browser to the Reading service, at `localhost:8080/to-read`. You should see the complete recommended reading list:
 
