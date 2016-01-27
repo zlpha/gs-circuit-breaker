@@ -87,15 +87,15 @@ include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/
 
 The Bookstore service will have a single endpoint. It will be accessible at `/recommended`, and will (for simplicity) return a `String` recommended reading list.
 
-In `src/main/java/hello`, create a new file, `BookstoreController.java`. It should look like this:
+Edit our main class, in `BookstoreApplication.java`. It should look like this:
 
-`bookstore/src/main/java/hello/BookstoreController.java`
+`bookstore/src/main/java/hello/BookstoreApplication.java`
 [source,java]
 ----
-include::complete/bookstore/src/main/java/hello/BookstoreController.java[]
+include::complete/bookstore/src/main/java/hello/BookstoreApplication.java[]
 ----
 
-The `@RestController` annotation marks the class as a controller class, like `@Controller` does, and also ensures that `@RequestMapping` methods in this class will behave as though annotated with `@ResponseBody`. That is, the return values of `@RequestMapping` methods in this class will be automatically converted appropriately from their original types and will be written directly to the response body.
+The `@RestController` annotation marks `BookstoreApplication` as a controller class, like `@Controller` does, and also ensures that `@RequestMapping` methods in this class will behave as though annotated with `@ResponseBody`. That is, the return values of `@RequestMapping` methods in this class will be automatically converted appropriately from their original types and will be written directly to the response body.
 
 We're going to run this application locally alongside a client service application, so in `src/main/resources/application.properties`, set `server.port` so that the Bookstore service won't conflict with the client when we get that running.
 
