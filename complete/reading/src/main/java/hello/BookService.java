@@ -1,6 +1,8 @@
 package hello;
 
 import java.net.URI;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.stereotype.Service;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
@@ -8,12 +10,19 @@ import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 @Service
 public class BookService {
 
+  @Bean
+  RestTemplate restTemplate(){
+    return new RestTemplate();
+  }
+
+  @Autowired
+  RestTemplate restTemplate;
+
   @HystrixCommand(fallbackMethod = "reliable")
   public String readingList() {
-    RestTemplate restTemplate = new RestTemplate();
     URI uri = URI.create("http://localhost:8090/recommended");
 
-    return restTemplate.getForObject(uri, String.class);
+    return this.restTemplate.getForObject(uri, String.class);
   }
 
   public String reliable() {
