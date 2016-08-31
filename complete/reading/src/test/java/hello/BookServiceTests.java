@@ -8,7 +8,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.client.MockRestServiceServer;
 
-import static org.junit.Assert.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.requestTo;
 import static org.springframework.test.web.client.response.MockRestResponseCreators.withSuccess;
 
@@ -27,11 +27,11 @@ public class BookServiceTests {
     public void readingListTest() {
         this.server.expect(requestTo("http://localhost:8090/recommended"))
                 .andRespond(withSuccess("books", MediaType.TEXT_PLAIN));
-        assertEquals("books", bookService.readingList());
+        assertThat(bookService.readingList()).isEqualTo("books");
     }
 
     @Test
     public void reliable() {
-        assertEquals("Cloud Native Java (O'Reilly)", bookService.reliable());
+        assertThat(bookService.reliable()).isEqualTo("Cloud Native Java (O'Reilly)");
     }
 }

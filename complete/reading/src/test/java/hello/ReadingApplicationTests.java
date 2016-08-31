@@ -13,7 +13,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.client.MockRestServiceServer;
 import org.springframework.web.client.RestTemplate;
 
-import static org.junit.Assert.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.method;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.requestTo;
 import static org.springframework.test.web.client.response.MockRestResponseCreators.withServerError;
@@ -48,7 +48,7 @@ public class ReadingApplicationTests {
                 .andExpect(method(HttpMethod.GET)).
                 andRespond(withSuccess("books", MediaType.TEXT_PLAIN));
         String books = testRestTemplate.getForObject("/to-read", String.class);
-        assertEquals("books", books);
+        assertThat(books).isEqualTo("books");
     }
 
     @Test
@@ -56,6 +56,6 @@ public class ReadingApplicationTests {
         this.server.expect(requestTo("http://localhost:8090/recommended")).
                 andExpect(method(HttpMethod.GET)).andRespond(withServerError());
         String books = testRestTemplate.getForObject("/to-read", String.class);
-        assertEquals("Cloud Native Java (O'Reilly)", books);
+        assertThat(books).isEqualTo("Cloud Native Java (O'Reilly)");
     }
 }
