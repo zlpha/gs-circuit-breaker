@@ -1,22 +1,19 @@
 package hello;
 
-import java.net.URI;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.web.client.RestTemplate;
-import org.springframework.stereotype.Service;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
+import java.net.URI;
 
 @Service
 public class BookService {
 
-  @Bean
-  RestTemplate restTemplate(){
-    return new RestTemplate();
-  }
+  private final RestTemplate restTemplate;
 
-  @Autowired
-  RestTemplate restTemplate;
+  public BookService(RestTemplate rest) {
+    this.restTemplate = rest;
+  }
 
   @HystrixCommand(fallbackMethod = "reliable")
   public String readingList() {
