@@ -157,7 +157,7 @@ Netflix's Hystrix library provides an implementation of the Circuit Breaker patt
 
 Spring Cloud Netflix Hystrix looks for any method annotated with the `@HystrixCommand` annotation, and wraps that method in a proxy connected to a circuit breaker so that Hystrix can monitor it. This currently only works in a class marked with `@Component` or `@Service`, so in the Reading application, under `src/main/java/hello`, add a new class: `BookService`.
 
-Move the `RestTemplate` method to `BookService`. The complete class should look like this:
+The `RestTemplate` will be injected into the constructor of the `BookService` when it is created. The complete class should look like this:
 
 `reading/src/main/java/hello/BookService.java`
 [source,java]
@@ -167,7 +167,7 @@ include::complete/reading/src/main/java/hello/BookService.java[]
 
 We've applied `@HystrixCommand` to our original `readingList()` method. We also have a new method here: `reliable()`. The `@HystrixCommand` annotation has `reliable` as its `fallbackMethod`, so if, for some reason, Hystrix opens the circuit on `readingList()`, we'll have an excellent (if short) placeholder reading list ready for our users.
 
-In our main class, `ReadingApplication`, let's inject the `BookService` and switch to calling it for our reading list:
+In our main class, `ReadingApplication`, we will create a `RestTemplate` bean, inject the `BookService` and call it for our reading list:
 
 `reading/src/main/java/hello/ReadingApplication.java`
 [source,java]
@@ -199,4 +199,3 @@ Congratulations! You've just developed a Spring application that uses the Circui
 
 
 include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/master/footer.adoc[]
-
