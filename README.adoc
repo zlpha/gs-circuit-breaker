@@ -199,3 +199,15 @@ Congratulations! You've just developed a Spring application that uses the Circui
 
 
 include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/master/footer.adoc[]
+
+== AWS Test
+```bash
+cd gs-circuit-breaker/complete
+mvn clean package -Dmaven.test.skip
+
+java -jar bookstore/target/bookstore-0.0.1-SNAPSHOT.jar
+curl localhost:8090/recommended
+
+java -jar reading/target/reading-0.0.1-SNAPSHOT.jar
+curl localhost:8080/to-read
+```
